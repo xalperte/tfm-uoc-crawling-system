@@ -165,7 +165,7 @@ class Common(Configuration):
                 "force_color": False,
                 "local_dir": "fs://%s/cache" % LOGGING_DIR,
                 "cache_dir": os.getenv(
-                    "CACHE_DIR", 'fs://%s/cache' % LOGGING_DIR),
+                    "DAVINCI_CACHE_DIR", 'fs://%s/cache' % LOGGING_DIR),
                 "workers_num": 1,
                 'chromium_bin_file': CHROMIUM_BIN_FILE,
                 'io_gs_project': os.getenv(
@@ -183,7 +183,7 @@ class Common(Configuration):
             },
             "parallelism": {
                 "multiproc": {
-                    "default_num_workers": 1
+                    "default_num_workers": 5
                 }
             }
         }
