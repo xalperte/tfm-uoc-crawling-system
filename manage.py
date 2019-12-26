@@ -9,11 +9,6 @@ if __name__ == "__main__":
         "DJANGO_SETTINGS_MODULE", "tfm_uoc_crawling_system.settings")
     os.environ.setdefault('DJANGO_CONFIGURATION', configuration)
 
-    import pydevd_pycharm
-
-    pydevd_pycharm.settrace('host.docker.internal', port=8787,
-                            stdoutToServer=True, stderrToServer=True)
-
     try:
         from configurations.management import execute_from_command_line
     except ImportError:
