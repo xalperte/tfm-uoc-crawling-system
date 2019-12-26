@@ -1,0 +1,84 @@
+# [START runtime]
+runtime: custom
+env: flex
+entrypoint: ./docker-entrypoint.sh
+
+service: tfm_uoc_crawling_system
+
+runtime_config:
+  python_version: 3
+
+automatic_scaling:
+  min_num_instances: 2
+  max_num_instances: 20
+  cool_down_period_sec: 180
+  cpu_utilization:
+    target_utilization: 0.7
+
+resources:
+  cpu: 2
+  memory_gb: 2
+  disk_size_gb: 50
+
+network:
+  instance_tag: tfm_uoc_crawling_system-service
+
+beta_settings:
+    cloud_sql_instances: [CLOUDSQL_INSTANCE_ID]
+
+env_variables:
+  SECRET_KEY: [SECRET_KEY]
+
+  ENVIRONMENT="production"
+
+  STATIC_URL: https://storage.googleapis.com/static-tfm_uoc_crawling_system-${GAE_VERSION}/static/
+
+  DEBUG: False
+
+  THROTTLE_ENABLED: True
+
+  SECURE_SSL_HOST: [SECURE_SSL_HOST]
+  SECURE_SSL_REDIRECT: True
+
+  SITE_SCHEMA: https
+  SITE_DOMAIN: buildgroupai.com
+
+  GOOGLE_ANALYTICS_ID: [ID]
+
+  # We are using the local pgbouncer connection pool
+  DB_HOST: [CLOUDSQL_INSTANCE_ID] # dotted-ranger-212213:europe-west2:postgres-db
+  DB_PORT: 5432
+  DB_USER: tfm_uoc_crawling_system
+  DB_PASSWORD: [DB_PASSWORD]
+
+  HAYSTACK_URL: [HAYSTACK_URL] # Ex. http://USER:PASS@HOST:8983/solr
+  HAYSTACK_ADMIN_URL: [HAYSTACK_ADMIN_URL] # Ex. http://USER:PASS@HOST:8983/solr/admin/cores
+
+  CASSANDRA_DB_HOST: [CASSANDRA_DB_HOSTS] # Ex. 10.154.0.2,10.154.0.3,10.154.0.4
+  CASSANDRA_DB_NAME: tfm_uoc_crawling_system
+  CASSANDRA_DB_USER: cassandra
+  CASSANDRA_DB_PASSWORD: [CASSANDRA_DB_PASSWORD]
+  CASSANDRA_DB_STRATEGY: SimpleStrategy
+  CASSANDRA_DB_REPLICATION: 3
+
+  REDIS_HOST_PRIMARY: [REDIS_HOST] # Ex. redis
+  REDIS_PORT_PRIMARY: 6379
+  REDIS_PASS_PRIMARY: [REDIS_PASWORD]
+
+  EMAIL_HOST_USER: [EMAIL_USER]
+  EMAIL_HOST_PASSWORD: [EMAIL_PASSWORD]
+
+  PROJECT_DOCKER_IMAGE: ${DOCKER_IMAGE}
+
+# Google App Engine limits application deployments to 10,000 uploaded files per
+# version. The skip_files section allows us to skip virtual environment files
+# to meet this requirement. The first 5 are the default regular expressions to
+# skip, while the last one is for all env/ files.
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^env/.*$
+# [END runtime]
