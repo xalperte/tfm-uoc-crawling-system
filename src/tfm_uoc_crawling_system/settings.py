@@ -90,6 +90,7 @@ class Common(Configuration):
         'caravaggio_rest_api.logging',
         'caravaggio_rest_api.users',
         'davinci_crawling',
+        'davinci_crawling.task',
 
         'tfm_uoc_crawling_system'
     ]
@@ -492,7 +493,8 @@ class Common(Configuration):
         'DEFAULT_AUTHENTICATION_CLASSES': (
             # 'rest_framework.authentication.BasicAuthentication',
             'rest_framework.authentication.SessionAuthentication',
-            'rest_framework.authentication.TokenAuthentication',
+            'caravaggio_rest_api.drf.authentication.'
+            'TokenAuthSupportQueryString',
         ),
 
         # Use Django's standard `django.contrib.auth` permissions,
