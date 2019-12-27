@@ -17,7 +17,8 @@ ENV CASSANDRA_DB_USER tfm_uoc
 ENV CASSANDRA_DB_PASSWORD tfm_uoc
 
 # SOLR connection information
-ENV HAYSTACK_URL="http://tfm_uoc_dse:8983/solr"
+#ENV HAYSTACK_URL="http://tfm_uoc_dse:8983/solr"
+ENV HAYSTACK_URL="http://host.docker.internal:8983/solr"
 
 # REDIS connection information
 ENV REDIS_HOST_PRIMARY tfm_uoc_redis
