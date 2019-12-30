@@ -21,13 +21,13 @@ except ImportError:
 
 
 class Common(Configuration):
-    CARAVAGGIO_API_TITLE = "Tfm_uoc_crawling_system API"
+    CARAVAGGIO_API_TITLE = "TFM UOC Crawling System API"
     CARAVAGGIO_API_VERSION = "v1"
     CARAVAGGIO_API_DESCRIPTION = \
-        "API for Tfm_uoc_crawling_system Crawling application"
+        "API for TFM UOC Crawling application"
     CARAVAGGIO_API_TERMS_URL = "https://www.google.com/policies/terms/"
-    CARAVAGGIO_API_CONTACT = "contact@buildgroupai.com"
-    CARAVAGGIO_API_LICENSE = "BSD License"
+    CARAVAGGIO_API_CONTACT = "javier.alperte@gmail.com"
+    CARAVAGGIO_API_LICENSE = "MIT License"
 
     # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -174,7 +174,8 @@ class Common(Configuration):
             },
             "bovespa": {
                 'companies_listing_update_elapsetime': 30,
-                'companies_files_update_elapsetime': 30
+                'companies_files_update_elapsetime': 30,
+                "cache_dir": "gs://davinci_example_bovespa",
             },
         },
         "architecture-params": {
