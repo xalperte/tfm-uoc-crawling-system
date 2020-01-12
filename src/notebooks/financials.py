@@ -97,13 +97,13 @@ def group_by_period(
     return df
 
 
-def get_log_returns(
+def get_security_returns(
         df,
         ticker_field="ticker",
         date_field="date",
         ct_price_field="close",
         output_field=None,
-        frequency="monthly"):
+        log_returns=False):
     """
 
     :param df: dataframe with the asset prices
@@ -118,13 +118,19 @@ def get_log_returns(
     """
 
     if not output_field:
-        output_field = f"{ct_price_field}_log_returns"
+        output_field = f"{ct_price_field}_returns"
 
     w = Window().partitionBy(ticker_field).orderBy(date_field)
 
-    df = df.withColumn(
-        output_field,
-        (F.col(ct_price_field) / F.lag(ct_price_field, 1).over(w)) - 1)
+    if log_returns:
+        df = df.withColumn(
+            output_field,
+            (F.col(ct_price_field) / F.lag(ct_price_field, 1).over(w)) - 1)
+    else:
+        df = df.withColumn(
+            output_field,
+            ((F.col(ct_price_field) - F.lag(ct_price_field, 1).over(w)) /
+             F.lag(ct_price_field, 1).over(w)))
 
     return df
 
