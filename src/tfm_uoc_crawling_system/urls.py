@@ -29,6 +29,8 @@ from caravaggio_rest_api.users.api.urls import urlpatterns as users_urls
 from caravaggio_rest_api.users.api.views import \
     CustomAuthToken, AdminAuthToken
 
+from davinci_crawling.task.urls import urlpatterns as task_urls
+
 from caravaggio_rest_api.views import schema_view
 
 try:
@@ -68,6 +70,8 @@ urlpatterns = [
 
     # Users API version
     url(r'^users/', include(users_urls)),
+
+    url(r'^davinci_crawling/', include(task_urls)),
 
     # ## END DO NOT TOUCH
 
